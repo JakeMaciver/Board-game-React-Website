@@ -49,7 +49,6 @@ main{
 }
 
 .review-card{
-  border:1px solid;
   text-align: center;
   display: grid;
   grid-template-rows: 30px 80px 40px 250px 30px 50px;
@@ -60,6 +59,7 @@ main{
   margin-right: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .card-category-box{
@@ -105,4 +105,9 @@ main{
   margin:0px;
   display:flex;
   justify-content:space-around;
+}
+
+.loading-text{
+  text-align: center;
+  justify-content: center;
 }
