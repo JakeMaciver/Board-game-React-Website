@@ -5,10 +5,12 @@ import { formatTime } from './utils';
 
 export const SingleReview = () => {
 	const [review, setReview] = useState([]);
-	const [comments, setComments] = useState([]);
 	let { review_id } = useParams();
-	const [isLoading, setIsLoading] = useState(true);
 	const [reviewError, setReviewError] = useState(null);
+	
+  const [isLoading, setIsLoading] = useState(true);
+  
+	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(null);
 	const [commentsVisible, setCommentsVisible] = useState(false);
 
