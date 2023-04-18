@@ -1,17 +1,22 @@
 import './App.css';
 import { Header } from './components/Header';
-import { Main } from './components/Main';
 import {Routes, Route} from 'react-router-dom';
+import { Topbar } from './components/Top-bar';
+import { ReviewList } from './components/Review-list';
+import { SingleReview } from './components/Single-review';
 
 function App() {
   return (
 		<div className='App'>
 			<Header />
-			<Routes>
-				<Route path='/' element={<Main />} />
-				<Route path='/reviews' element={<Main />} />
-				<Route path='/reviews/:review_id' element={<Main />} />
-			</Routes>
+			<Topbar />
+			<section className='main-content'>
+				<Routes>
+					<Route path='/' element={<ReviewList/>} />
+					<Route path='/reviews' element={<ReviewList/>} />
+					<Route path='/reviews/:review_id' element={<SingleReview/>} />
+				</Routes>
+			</section>
 		</div>
 	);
 }
