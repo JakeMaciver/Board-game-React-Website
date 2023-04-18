@@ -1,25 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSingleReview } from './api';
+import { getSingleReview, getCommentById } from './api';
 
 export const SingleReview = () => {
 	const [review, setReview] = useState([]);
+	const [comments, setComments] = useState([]);
 	let { review_id } = useParams();
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [isComments, setIsComments] = useState(false);
+
+	const handleOnClick = () => {
+		setIsComments((isComments) => !isComments);
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const data = await getSingleReview(review_id);
+				const commentData = await getCommentById(review_id);
 				setReview(data);
+				setComments(commentData);
 			} catch (error) {
 				setError('Error fetching data from api');
 			}
 			setIsLoading(false);
 		};
 		fetchData();
-	}, [review_id]);
+	}, [review_id, isComments]);
 
 	return (
 		<ul className='single-review'>
@@ -50,7 +58,12 @@ export const SingleReview = () => {
 						<p className='review-body'>{review.review_body}</p>
 						<section className='review-footer'>
 							<p>
-								<span className='material-symbols-outlined'>chat</span>
+								<span
+									className='material-symbols-outlined'
+									onClick={handleOnClick}
+								>
+									chat
+								</span>
 								{review.comment_count}
 							</p>
 							<p>
@@ -62,7 +75,30 @@ export const SingleReview = () => {
 				</ul>
 			)}
 			<li className='post-comment'></li>
-			<li className='comments'></li>
+			{isComments ? (
+				<li className='comments'>
+					<ul className='comments-list'>
+						{comments.map((comment) => {
+							return (
+								<li key={comment.comment_id} className='comment'>
+									<section className='comment-user-box'>
+										<span className='material-symbols-outlined'>
+											account_circle
+										</span>
+										<p>{comment.author}</p>
+										<p className='comment-created'> on {comment.created_at}</p>
+									</section>
+									<p className='comment-body'>{comment.body}</p>
+									<p>
+										<span className='material-symbols-outlined'>favorite</span>
+										{comment.votes}
+									</p>
+								</li>
+							);
+						})}
+					</ul>
+				</li>
+			) : null}
 		</ul>
 	);
 };

@@ -12,9 +12,9 @@ function App() {
 			<Topbar />
 			<section className='main-content'>
 				<Routes>
-					<Route path='/' element={<ReviewList/>} />
-					<Route path='/reviews' element={<ReviewList/>} />
-					<Route path='/reviews/:review_id' element={<SingleReview/>} />
+					<Route path='/' element={<ReviewList />} />
+					<Route path='/reviews' element={<ReviewList />} />
+					<Route path='/reviews/:review_id' element={<SingleReview />} />
 				</Routes>
 			</section>
 		</div>

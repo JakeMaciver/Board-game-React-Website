@@ -123,6 +123,7 @@ main{
   display:grid;
   grid-column:2/3;
   padding:0px;
+  list-style-type: none;
 }
 
 .review{
@@ -191,4 +192,48 @@ main{
   margin:0px;
   display:flex;
   justify-content:space-around;
+}
+
+.comments-list{
+  list-style-type: none;
+  width:100%;
+  padding:0px;
+}
+
+.comment{
+  text-align: center;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.comment-user-box{
+  grid-row: 1/2;
+  margin:0px;
+  display:flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 12px; 
+  margin-left:10px;
+}
+
+.comment-created{
+  color: rgb(150, 150, 147);
+  margin-left: 10px;
+}
+
+.material-symbols-outlined:hover {
+  cursor: pointer;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
