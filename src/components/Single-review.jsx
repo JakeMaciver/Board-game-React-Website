@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSingleReview } from './api';
+import { getSingleReview, getCommentById } from './api';
+import { formatTime } from './utils';
 
 export const SingleReview = () => {
 	const [review, setReview] = useState([]);
+	const [comments, setComments] = useState([]);
 	let { review_id } = useParams();
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [reviewError, setReviewError] = useState(null);
+	const [commentError, setCommentError] = useState(null);
+	const [commentsVisible, setCommentsVisible] = useState(false);
+
+	const handleOnClick = () => {
+		setCommentsVisible((commentsVisible) => !commentsVisible);
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -14,7 +22,13 @@ export const SingleReview = () => {
 				const data = await getSingleReview(review_id);
 				setReview(data);
 			} catch (error) {
-				setError('Error fetching data from api');
+				setReviewError('Error fetching review data from api');
+			}
+			try {
+				const commentData = await getCommentById(review_id);
+				setComments(commentData);
+			} catch (error) {
+				setCommentError('Error fetching comment data from api');
 			}
 			setIsLoading(false);
 		};
@@ -25,8 +39,8 @@ export const SingleReview = () => {
 		<ul className='single-review'>
 			{isLoading ? (
 				<p className='loading-text'>Loading content...</p>
-			) : error ? (
-				<p>{error}</p>
+			) : reviewError ? (
+				<p>{reviewError}</p>
 			) : (
 				<ul className='cards-list'>
 					<li className='review'>
@@ -37,7 +51,7 @@ export const SingleReview = () => {
 						<h2 className='review-title'>{review.title}</h2>
 						<section className='review-sub-text'>
 							<p>by {review.owner}</p>
-							<p>on {review.created_at}</p>
+							<p>on {formatTime(review.created_at)}</p>
 						</section>
 						<img
 							src={review.review_img_url}
@@ -50,7 +64,12 @@ export const SingleReview = () => {
 						<p className='review-body'>{review.review_body}</p>
 						<section className='review-footer'>
 							<p>
-								<span className='material-symbols-outlined'>chat</span>
+								<span
+									className='material-symbols-outlined'
+									onClick={handleOnClick}
+								>
+									chat
+								</span>
 								{review.comment_count}
 							</p>
 							<p>
@@ -62,7 +81,35 @@ export const SingleReview = () => {
 				</ul>
 			)}
 			<li className='post-comment'></li>
-			<li className='comments'></li>
+			<li className='comments'>
+				{commentError ? (
+					<p>{commentError}</p>
+				) : commentsVisible ? (
+					<ul className='comments-list'>
+						{comments.map((comment) => {
+							return (
+								<li key={comment.comment_id} className='comment'>
+									<section className='comment-user-box'>
+										<span className='material-symbols-outlined'>
+											account_circle
+										</span>
+										<p>{comment.author}</p>
+										<p className='comment-created'>
+											{' '}
+											on {formatTime(comment.created_at)}
+										</p>
+									</section>
+									<p className='comment-body'>{comment.body}</p>
+									<p>
+										<span className='material-symbols-outlined'>favorite</span>
+										{comment.votes}
+									</p>
+								</li>
+							);
+						})}
+					</ul>
+				) : null}
+			</li>
 		</ul>
 	);
 };
