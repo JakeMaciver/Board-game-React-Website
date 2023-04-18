@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getReviews } from './api';
 import {Link} from "react-router-dom";
+import { formatTime } from './utils';
 
 export const ReviewList = () => {
   const [reviews, setReviews] = useState([]);
@@ -40,7 +41,7 @@ export const ReviewList = () => {
 								</Link>
 								<section className='card-sub-text'>
 									<p>by {review.owner}</p>
-									<p>on {review.created_at}</p>
+									<p>on {formatTime(review.created_at)}</p>
 								</section>
 								<img
 									src={review.review_img_url}
