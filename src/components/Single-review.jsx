@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSingleReview, getCommentById } from './api';
+import { getSingleReview, getCommentById, postComment } from './api';
 import { formatTime } from './utils';
 import { Vote } from './Vote';
 
-export const SingleReview = () => {
+export const SingleReview = ({ user }) => {
 	const [review, setReview] = useState([]);
 	let { review_id } = useParams();
 	const [reviewError, setReviewError] = useState(null);
@@ -17,9 +17,42 @@ export const SingleReview = () => {
 
 	const [voteError, setVoteError] = useState(false);
 
+	const [commentText, setCommentText] = useState('');
+	const [commentSubmitClicked, setCommentSubmitClicked] = useState(false);
+	const [postBody, setPostBody] = useState({});
+	const [postCommentError, setPostCommentError] = useState(false);
+	const [commentHasPosted, setCommentHasPosted] = useState(false);
+
 	const handleOnClick = () => {
 		setCommentsVisible((commentsVisible) => !commentsVisible);
 	};
+
+	const handlePostCommentClick = (event) => {
+		event.preventDefault();
+		if (commentText) {
+			setPostCommentError(false);
+			setPostBody({ body: commentText, username: user });
+			setCommentSubmitClicked(true);
+			setCommentText('');
+		} else {
+			setPostCommentError(true);
+		}
+	};
+
+	useEffect(() => {
+		const postItem = async () => {
+			try {
+				const data = await postComment(review_id, postBody);
+				setComments((comments) => [data, ...comments]);
+				setCommentHasPosted(true);
+			} catch (error) {}
+		};
+		if (commentSubmitClicked) {
+			postItem();
+			setCommentSubmitClicked(false);
+		}
+		setCommentHasPosted(false);
+	}, [commentSubmitClicked, postBody, review_id]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -92,7 +125,31 @@ export const SingleReview = () => {
 					</li>
 				</ul>
 			)}
-			<li className='post-comment'></li>
+
+			<li className='post-comment'>
+				{!commentHasPosted ? (
+					<form
+						className='post-comment-form'
+						onSubmit={(event) => handlePostCommentClick(event)}
+					>
+						<textarea
+							className='post-comment-text'
+							value={commentText}
+							name='comment'
+							onChange={(event) => setCommentText(event.target.value)}
+						></textarea>
+						{postCommentError ? (
+							<p className='error'>Enter some text before posting...</p>
+						) : null}
+						<button type='submit' className='post-comment-button'>
+							Post comment
+						</button>
+					</form>
+				) : (
+					<p>Posting your comment...</p>
+				)}
+			</li>
+
 			<li className='comments'>
 				{commentError ? (
 					<p>{commentError}</p>
