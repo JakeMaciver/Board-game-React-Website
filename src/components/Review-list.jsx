@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
 import { getReviews } from './api';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { formatTime } from './utils';
+import { Vote } from './Vote';
 
 export const ReviewList = () => {
-  const [reviews, setReviews] = useState([]);
+	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [getReviewsError, setGetReviewsError] = useState(null);
+	const [voteError, setVoteError] = useState(false);
 
-  useEffect(() => {
+	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const data = await getReviews();
 				setReviews(data);
 			} catch (error) {
-				setError('Error fetching data from api');
+				setGetReviewsError('Error fetching data from api');
 			}
 			setIsLoading(false);
 		};
 		fetchData();
 	}, []);
 
-  return (
+	return (
 		<section className='review-list'>
 			{isLoading ? (
 				<p className='loading-text'>Loading content...</p>
-			) : error ? (
-				<p>{error}</p>
+			) : getReviewsError ? (
+				<p>{getReviewsError}</p>
 			) : (
 				<ul className='cards-list'>
 					{reviews.map((review) => {
@@ -56,10 +58,18 @@ export const ReviewList = () => {
 										<span className='material-symbols-outlined'>chat</span>
 										{review.comment_count}
 									</p>
-									<p>
-										<span className='material-symbols-outlined'>favorite</span>
-										{review.votes}
-									</p>
+									<Vote
+										reviews={reviews}
+										review={review}
+										setReviews={setReviews}
+										setVoteError={setVoteError}
+										voteError={voteError}
+									/>
+									{voteError ? (
+										<p className='error'>
+											Could not process vote, check connection...
+										</p>
+									) : null}
 								</section>
 							</li>
 						);

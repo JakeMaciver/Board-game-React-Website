@@ -16,3 +16,8 @@ export const getCommentById = async (id) => {
   const {data} = await api.get(`reviews/${id}/comments`)
   return data.comments;
 }
+
+export const patchReviewVotes = async (id, vote) => {
+	const { data } = await api.patch(`reviews/${id}`, { inc_votes: vote });
+	return data.review;
+};

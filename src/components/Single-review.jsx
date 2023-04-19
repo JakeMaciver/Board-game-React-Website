@@ -2,15 +2,20 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSingleReview, getCommentById } from './api';
 import { formatTime } from './utils';
+import { Vote } from './Vote';
 
 export const SingleReview = () => {
 	const [review, setReview] = useState([]);
-	const [comments, setComments] = useState([]);
 	let { review_id } = useParams();
-	const [isLoading, setIsLoading] = useState(true);
 	const [reviewError, setReviewError] = useState(null);
+
+	const [isLoading, setIsLoading] = useState(true);
+
+	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(null);
 	const [commentsVisible, setCommentsVisible] = useState(false);
+
+	const [voteError, setVoteError] = useState(false);
 
 	const handleOnClick = () => {
 		setCommentsVisible((commentsVisible) => !commentsVisible);
@@ -72,10 +77,17 @@ export const SingleReview = () => {
 								</span>
 								{review.comment_count}
 							</p>
-							<p>
-								<span className='material-symbols-outlined'>favorite</span>
-								{review.votes}
-							</p>
+							<Vote
+								review={review}
+								setVoteError={setVoteError}
+								setReview={setReview}
+								voteError={voteError}
+							/>
+							{voteError ? (
+								<p className='error'>
+									Could not process vote, check connection...
+								</p>
+							) : null}
 						</section>
 					</li>
 				</ul>
