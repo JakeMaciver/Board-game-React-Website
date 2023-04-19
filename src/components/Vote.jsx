@@ -14,7 +14,6 @@ export const Vote = ({
 		let vote = voteClicked ? 1 : -1;
 		try {
 			setVoteClicked((voteClicked) => !voteClicked);
-			await patchReviewVotes(id, vote);
 			if (!reviews) {
 				setReview({ ...review, votes: review.votes + vote });
 			} else {
@@ -27,6 +26,7 @@ export const Vote = ({
 					})
 				);
 			}
+			await patchReviewVotes(id, vote);
 			setVoteError(false);
 		} catch (error) {
 			setVoteError(true);
