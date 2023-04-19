@@ -1,25 +1,36 @@
 import { useState } from 'react';
 import { patchReviewVotes } from './api';
 
-export const Vote = ({ review, reviews, setReviews }) => {
+export const Vote = ({
+	review,
+	reviews,
+	setReview,
+	setReviews,
+	setVoteError,
+}) => {
 	const [voteClicked, setVoteClicked] = useState(true);
 
 	const handleVoteClick = async (id) => {
-		setVoteClicked((voteClicked) => !voteClicked);
 		let vote = voteClicked ? 1 : -1;
 		try {
-			patchReviewVotes(id, vote);
+			setVoteClicked((voteClicked) => !voteClicked);
+			await patchReviewVotes(id, vote);
+			if (!reviews) {
+				setReview({ ...review, votes: review.votes + vote });
+			} else {
+				setReviews(
+					reviews.map((review) => {
+						if (review.review_id === id) {
+							return { ...review, votes: review.votes + vote };
+						}
+						return review;
+					})
+				);
+			}
+			setVoteError(false);
 		} catch (error) {
-			return null;
+			setVoteError(true);
 		}
-		setReviews(
-			reviews.map((review) => {
-				if (review.review_id === id) {
-					return { ...review, votes: review.votes + vote };
-				}
-				return review;
-			})
-		);
 	};
 
 	return (

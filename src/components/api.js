@@ -18,7 +18,6 @@ export const getCommentById = async (id) => {
 }
 
 export const patchReviewVotes = async (id, vote) => {
-  console.log(vote);
-  const {data} = await api.patch(`reviews/${id}`, {inc_votes: vote});
-  return data.review;
-}
+	const { data } = await api.patch(`reviews/${id}`, { inc_votes: vote });
+	return data.review;
+};
