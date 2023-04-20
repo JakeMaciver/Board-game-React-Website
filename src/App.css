@@ -292,3 +292,6 @@ main{
 .post-comment-button:hover {
   background-color: #58595a;
 }
+.success-posting-comment{
+  text-align: center;
+}

@@ -8,7 +8,7 @@ export const CommentCounter = ({review, setCommentsVisible, setCommentCounter, c
 	};
   
   useEffect(() => {
-    setCommentCounter(review.comment_count);
+setCommentCounter(review.comment_count);
   }, [review.comment_count, setCommentCounter])
 
 	return (

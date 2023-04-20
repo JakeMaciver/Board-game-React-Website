@@ -1,9 +1,39 @@
-import { Vote } from "./Vote";
-import { CommentCounter } from "./CommentCounter";
-import { formatTime } from "./utils";
+import { Vote } from './Vote';
+import { CommentCounter } from './CommentCounter';
+import { formatTime } from './utils';
+import { useState, useEffect} from 'react';
+import { getSingleReview } from './api';
 
-export const SingleReviewCard = ({review, setCommentCounter, setCommentsVisible, setVoteError, setReview, voteError, commentCounter}) => {
-  return (
+export const SingleReviewCard = ({
+	review,
+	setCommentCounter,
+	setCommentsVisible,
+	setReview,
+	commentCounter,
+  review_id,
+}) => {
+	const [voteError, setVoteError] = useState(false);
+  const [reviewError, setReviewError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const data = await getSingleReview(review_id);
+				setReview(data);
+			} catch (error) {
+				setReviewError('Error fetching review data from api');
+			}
+			setIsLoading(false);
+		};
+		fetchData();
+	}, [review_id, setReview]);
+
+	return isLoading ? (
+		<p className='loading-text'>Loading content...</p>
+	) : reviewError ? (
+		<p>{reviewError}</p>
+	) : (
 		<ul className='cards-list'>
 			<li className='review'>
 				<section className='review-category-box'>
@@ -27,8 +57,7 @@ export const SingleReviewCard = ({review, setCommentCounter, setCommentsVisible,
 						review={review}
 						setCommentsVisible={setCommentsVisible}
 						setCommentCounter={setCommentCounter}
-            commentCounter={commentCounter}
-					/>
+						commentCounter={commentCounter}					/>
 					<Vote
 						review={review}
 						setVoteError={setVoteError}
@@ -42,4 +71,4 @@ export const SingleReviewCard = ({review, setCommentCounter, setCommentsVisible,
 			</li>
 		</ul>
 	);
-}
+};
