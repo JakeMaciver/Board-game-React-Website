@@ -48,7 +48,7 @@ export const PostComment = ({
 			setCommentHasPosted(false);
 		}, 3000);
 		return () => clearTimeout(timeout);
-	}, [commentSubmitClicked]);
+	}, [commentSubmitClicked, postBody, review_id, setCommentCounter, setComments, setCommentsVisible]);
 
 	return (
 		<li className='post-comment'>
@@ -74,7 +74,7 @@ export const PostComment = ({
 				<p className='success-posting-comment'>Your comment has been posted</p>
 			) : (
 				<p className='error'>
-					Not able to post your comment, check your connection...
+					Unable to post to api, check your connection...
 				</p>
 			)}
 		</li>
