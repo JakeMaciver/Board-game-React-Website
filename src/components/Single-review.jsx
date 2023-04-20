@@ -13,8 +13,6 @@ export const SingleReview = ({ user }) => {
 	const [commentsVisible, setCommentsVisible] = useState(false);
 	const [commentCounter, setCommentCounter] = useState(null);
 
-  const [apiCommentError, setApiCommentError] = useState(false);
-
 	return (
 		<ul className='single-review'>
 			<SingleReviewCard
@@ -24,7 +22,6 @@ export const SingleReview = ({ user }) => {
 				setReview={setReview}
 				commentCounter={commentCounter}
 				review_id={review_id}
-        apiCommentError={apiCommentError}
 			/>
 
 			<PostComment

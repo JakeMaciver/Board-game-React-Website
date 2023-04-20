@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
 import { getReviews } from './api';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { formatTime } from './utils';
 import { Vote } from './Vote';
+import { Sidebar } from './Sidebar';
 
-export const ReviewList = () => {
+export const ReviewList = ({ setSidebarVisible, sidebarVisible }) => {
 	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [getReviewsError, setGetReviewsError] = useState(null);
 	const [voteError, setVoteError] = useState(false);
 
+	const [category, setCategory] = useState('');
+	const { category_name } = useParams();
+
+	useEffect(() => {
+		setCategory(category_name);
+	}, [category_name]);
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getReviews();
+				const data = await getReviews(category);
 				setReviews(data);
 			} catch (error) {
 				setGetReviewsError('Error fetching data from api');
@@ -21,16 +29,19 @@ export const ReviewList = () => {
 			setIsLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [category]);
 
 	return (
 		<section className='review-list'>
-			{isLoading ? (
+			{sidebarVisible ? (
+				<Sidebar />
+			) : isLoading ? (
 				<p className='loading-text'>Loading content...</p>
 			) : getReviewsError ? (
 				<p>{getReviewsError}</p>
 			) : (
 				<ul className='cards-list'>
+					{category ? <h2 className='category-title'>{category}</h2> : null}
 					{reviews.map((review) => {
 						return (
 							<li key={review.review_id} className='review-card'>
