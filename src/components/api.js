@@ -2,8 +2,10 @@ import axios from "axios"
 
 const api = axios.create({baseURL: 'https://board-games-api.onrender.com/api/'});
 
-export const getReviews = async () => {
-  const {data} = await api.get('reviews');
+export const getReviews = async (category) => {
+  let request = `/reviews`;
+  if (category) request = `/reviews?category=${category}`;
+  const {data} = await api.get(request);
   return data.reviews;
 }
 
@@ -25,4 +27,9 @@ export const patchReviewVotes = async (id, vote) => {
 export const postComment = async (id, comment) => {
   const {data} = await api.post(`reviews/${id}/comments`, comment);
   return data.comment[0];
+}
+
+export const getCategories = async () => {
+  const {data} = await api.get(`categories`);
+  return data.categories;
 }

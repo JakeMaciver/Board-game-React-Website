@@ -14,7 +14,7 @@ export const Comments = ({setCommentError, setComments, review_id, commentError,
 			}
 		};
 		fetchData();
-	}, [review_id]);
+	}, [review_id, setCommentError, setComments]);
 
 	return (
 		<li className='comments'>
