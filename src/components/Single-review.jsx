@@ -10,7 +10,7 @@ export const SingleReview = ({ user }) => {
 
 	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(null);
-	const [commentsVisible, setCommentsVisible] = useState(false);
+	const [commentsVisible, setCommentsVisible] = useState(true);
 	const [commentCounter, setCommentCounter] = useState(null);
 
 	return (
@@ -31,8 +31,7 @@ export const SingleReview = ({ user }) => {
 				setCommentCounter={setCommentCounter}
 				setCommentsVisible={setCommentsVisible}
 			/>
-
-			<Comments
+      {commentsVisible? (<Comments
 				setCommentError={setCommentError}
 				setComments={setComments}
 				review_id={review_id}
@@ -40,7 +39,7 @@ export const SingleReview = ({ user }) => {
 				comments={comments}
 				commentsVisible={commentsVisible}
         user={user}
-			/>
+			/>) : null}
 		</ul>
 	);
 };

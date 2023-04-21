@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getCategories } from './api';
 import { Link } from 'react-router-dom';
-import { RightAside } from './Right-aisde';
 
-export const Sidebar = ({sidebarVisible, sortItems, setSortItems, orderItems, setOrderItems}) => {
+export const Sidebar = () => {
 	const [categories, setCategories] = useState([]);
 
 	useEffect(() => {
@@ -32,14 +31,6 @@ export const Sidebar = ({sidebarVisible, sortItems, setSortItems, orderItems, se
 					</li>
 				);
 			})}
-			{sidebarVisible ? (
-				<RightAside
-					sortItems={sortItems}
-					setSortItems={setSortItems}
-					orderItems={orderItems}
-					setOrderItems={setOrderItems}
-				/>
-			) : null}
 		</ul>
 	);
 };

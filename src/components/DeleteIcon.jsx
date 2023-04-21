@@ -1,13 +1,18 @@
-import { deleteComment } from "./api";
+import { deleteComment } from './api';
 
-export const DeleteIcon = ({comment, setComments, user}) => {
+export const DeleteIcon = ({ comment, user, setDeleteClicked, setDeleteError, deleteError}) => {
 
-  const handleDeleteOnClick = async (id) => {
-    setComments((comments) => [...comments].filter(comment => comment.comment_id !== id))
-    await deleteComment(id);
-  }
+	const handleDeleteOnClick = async (id) => {
+    try {
+      await deleteComment(id);
+		} catch (error) {
+      console.log(error)
+      setDeleteError(true);
+		}
+    if(!deleteError) setDeleteClicked({ id: id, clicked: true });
+	};
 
-  return (
+	return (
 		<section className='comment-delete'>
 			<p className='comment-votes'>
 				<span className='material-symbols-outlined'>favorite</span>
@@ -15,9 +20,15 @@ export const DeleteIcon = ({comment, setComments, user}) => {
 			</p>
 			{comment.author === user ? (
 				<p className='comment-delete-icon'>
-					<span className='material-symbols-outlined' onClick={() => handleDeleteOnClick(comment.comment_id)}>delete</span>
+					<span
+						className='material-symbols-outlined'
+						onClick={() => handleDeleteOnClick(comment.comment_id)}
+					>
+						delete
+					</span>
 				</p>
 			) : null}
+      {deleteError? (<p className='error'>unable to delete comment from API...</p>) : null}
 		</section>
 	);
-}
+};

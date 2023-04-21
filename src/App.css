@@ -12,7 +12,8 @@ header{
 }
 
 h1{
-  font-size: large;
+  font-size: 4em;
+  font-family:'Times New Roman', Times, serif;
 }
 
 main{
@@ -22,11 +23,24 @@ main{
 
 .top-bar{
   grid-row: 1/2;
+  display: grid;
+  grid-template-columns: auto 550px auto;
   width: 100vw;
   border-bottom: 1px solid rgb(161,156,156);
-  display: flex;
   align-items: center;
-  justify-content: space-around;
+}
+
+.menu-icon{
+  margin-left:auto;
+}
+
+.create-review-btn{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.account-icon{
+  margin-right:auto;
 }
 
 .create-review-btn{
@@ -319,11 +333,10 @@ main{
   flex-direction: column;
   list-style-type: none;
   margin-left:auto;
-  margin-right:auto;
-  padding-right:20%;
-  padding-left: 15%;
-  width:50%;
-  align-items: center;
+  margin-right:30px;
+  padding-right:15%;
+  padding-left: 20%;
+  border-right: 2px solid;
 }
 
 .side-bar-title{
@@ -340,3 +353,22 @@ main{
   text-align: center;
 }
 
+.aside-bar{
+  display:flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin-left:30px;
+  padding-right:20%;
+  padding-left: 10%;
+  border-left: 2px solid;
+}
+
+.aside-bar-title{
+  font-weight: bold;
+}
+
+.aside-bar-list-item{
+  font-size: small;
+  margin-left: 10px;
+  text-decoration: none;
+}

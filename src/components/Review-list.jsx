@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { formatTime } from './utils';
 import { Vote } from './Vote';
 import { Sidebar } from './Sidebar';
+import { RightAside } from './Right-aisde';
 
 export const ReviewList = ({
 	sidebarVisible,
@@ -61,13 +62,23 @@ export const ReviewList = ({
 	return (
 		<section className='review-list'>
 			{sidebarVisible ? (
-				<Sidebar
-					sidebarVisible={sidebarVisible}
-					sortItems={sortItems}
-					setSortItems={setSortItems}
-					orderItems={orderItems}
-					setOrderItems={setOrderItems}
-				/>
+				<section>
+					<Sidebar
+						sidebarVisible={sidebarVisible}
+						sortItems={sortItems}
+						setSortItems={setSortItems}
+						orderItems={orderItems}
+						setOrderItems={setOrderItems}
+					/>
+					{sidebarVisible ? (
+						<RightAside
+							sortItems={sortItems}
+							setSortItems={setSortItems}
+							orderItems={orderItems}
+							setOrderItems={setOrderItems}
+						/>
+					) : null}
+				</section>
 			) : isLoading ? (
 				<p className='loading-text'>Loading content...</p>
 			) : getReviewsError ? (

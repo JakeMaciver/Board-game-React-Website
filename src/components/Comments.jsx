@@ -1,9 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCommentById } from "./api";
 import { formatTime } from "./utils";
 import { DeleteIcon } from "./DeleteIcon";
 
 export const Comments = ({setCommentError, setComments, review_id, commentError, comments, commentsVisible, user}) => {
+
+  const [deleteClicked, setDeleteClicked] = useState({
+		id: null,
+		clicked: false,
+	});
+
+  const [deleteError, setDeleteError] = useState(false);
 
   useEffect(() => {
 		const fetchData = async () => {
@@ -14,8 +21,8 @@ export const Comments = ({setCommentError, setComments, review_id, commentError,
 				setCommentError('Error fetching comment data from api');
 			}
 		};
-		fetchData();
-	}, [review_id, setCommentError, setComments]);
+    fetchData();
+	}, [review_id, setCommentError, setComments, deleteClicked, deleteError]);
 
 	return (
 		<li className='comments'>
@@ -24,6 +31,11 @@ export const Comments = ({setCommentError, setComments, review_id, commentError,
 			) : commentsVisible ? (
 				<ul className='comments-list'>
 					{comments.map((comment) => {
+            if (
+							deleteClicked.clicked &&
+							comment.comment_id === deleteClicked.id
+						)
+							return <li key={'delete-message'}><p className='error'>Comment is being deleted...</p></li>; 
 						return (
 							<li key={comment.comment_id} className='comment'>
 								<section className='comment-user-box'>
@@ -36,7 +48,15 @@ export const Comments = ({setCommentError, setComments, review_id, commentError,
 										on {formatTime(comment.created_at)}
 									</p>
 								</section>
-								<DeleteIcon comment={comment} user={user} setComments={setComments}/>
+								<DeleteIcon
+									comment={comment}
+									user={user}
+									setComments={setComments}
+									setDeleteClicked={setDeleteClicked}
+									deleteClicked={deleteClicked}
+                  setDeleteError={setDeleteError}
+                  deleteError={deleteError}
+								/>
 								<p className='comment-body'>{comment.body}</p>
 							</li>
 						);
