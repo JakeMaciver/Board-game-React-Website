@@ -3,8 +3,8 @@ import axios from "axios"
 const api = axios.create({baseURL: 'https://board-games-api.onrender.com/api/'});
 
 export const getReviews = async (category) => {
-  let request = `/reviews`;
-  if (category) request = `/reviews?category=${category}`;
+  let request = `/reviews`; 
+  if (category) request = `/reviews?category=${category}`
   const {data} = await api.get(request);
   return data.reviews;
 }

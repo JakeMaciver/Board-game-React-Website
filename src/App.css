@@ -299,11 +299,15 @@ main{
 /*Side-bar CSS*/
 
 .side-bar{
+  display:flex;
+  flex-direction: column;
   list-style-type: none;
   margin-left:auto;
   margin-right:auto;
   padding-right:20%;
   padding-left: 15%;
+  width:50%;
+  align-items: center;
 }
 
 .side-bar-title{
@@ -319,3 +323,4 @@ main{
 .category-title{
   text-align: center;
 }
+
