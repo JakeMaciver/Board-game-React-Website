@@ -5,23 +5,31 @@ import { formatTime } from './utils';
 import { Vote } from './Vote';
 import { Sidebar } from './Sidebar';
 
-export const ReviewList = ({ setSidebarVisible, sidebarVisible }) => {
+export const ReviewList = ({
+	sidebarVisible,
+	sortItems,
+	setSortItems,
+	orderItems,
+	setOrderItems,
+}) => {
 	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [getReviewsError, setGetReviewsError] = useState(null);
 	const [voteError, setVoteError] = useState(false);
-
 	const [category, setCategory] = useState('');
 	const { category_name } = useParams();
+
+	const [query, setQuery] = useState({ sort_by: null, order_by: null });
 
 	useEffect(() => {
 		setCategory(category_name);
 	}, [category_name]);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchData = async () => {
 			try {
-				const data = await getReviews(category);
+				const data = await getReviews(category, query.sort_by, query.order_by);
 				setReviews(data);
 			} catch (error) {
 				setGetReviewsError('Error fetching data from api');
@@ -29,12 +37,37 @@ export const ReviewList = ({ setSidebarVisible, sidebarVisible }) => {
 			setIsLoading(false);
 		};
 		fetchData();
-	}, [category]);
+	}, [category, query.sort_by, query.order_by]);
+
+	useEffect(() => {
+		let sort_by = null;
+		let order_by = null;
+
+		sortItems.forEach((item) => {
+			if (item.checked) {
+				sort_by = item.query;
+			}
+		});
+
+		orderItems.forEach((item) => {
+			if (item.checked) {
+				order_by = item.query;
+			}
+		});
+
+		setQuery({ sort_by, order_by });
+	}, [sortItems, orderItems]);
 
 	return (
 		<section className='review-list'>
 			{sidebarVisible ? (
-				<Sidebar />
+				<Sidebar
+					sidebarVisible={sidebarVisible}
+					sortItems={sortItems}
+					setSortItems={setSortItems}
+					orderItems={orderItems}
+					setOrderItems={setOrderItems}
+				/>
 			) : isLoading ? (
 				<p className='loading-text'>Loading content...</p>
 			) : getReviewsError ? (
