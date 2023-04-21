@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { getCommentById } from "./api";
 import { formatTime } from "./utils";
+import { DeleteIcon } from "./DeleteIcon";
 
-export const Comments = ({setCommentError, setComments, review_id, commentError, comments, commentsVisible}) => {
+export const Comments = ({setCommentError, setComments, review_id, commentError, comments, commentsVisible, user}) => {
 
   useEffect(() => {
 		const fetchData = async () => {
@@ -35,11 +36,8 @@ export const Comments = ({setCommentError, setComments, review_id, commentError,
 										on {formatTime(comment.created_at)}
 									</p>
 								</section>
+								<DeleteIcon comment={comment} user={user} setComments={setComments}/>
 								<p className='comment-body'>{comment.body}</p>
-								<p>
-									<span className='material-symbols-outlined'>favorite</span>
-									{comment.votes}
-								</p>
 							</li>
 						);
 					})}

@@ -39,6 +39,7 @@ export const SingleReview = ({ user }) => {
 				commentError={commentError}
 				comments={comments}
 				commentsVisible={commentsVisible}
+        user={user}
 			/>
 		</ul>
 	);
