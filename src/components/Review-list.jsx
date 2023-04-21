@@ -5,67 +5,58 @@ import { formatTime } from './utils';
 import { Vote } from './Vote';
 import { Sidebar } from './Sidebar';
 
-export const ReviewList = ({sidebarVisible, sortItems, setSortItems, orderItems, setOrderItems}) => {
+export const ReviewList = ({
+	sidebarVisible,
+	sortItems,
+	setSortItems,
+	orderItems,
+	setOrderItems,
+}) => {
 	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [getReviewsError, setGetReviewsError] = useState(null);
 	const [voteError, setVoteError] = useState(false);
-
 	const [category, setCategory] = useState('');
 	const { category_name } = useParams();
 
-  const [query, setQuery] = useState({sort_by: null, order_by: null})
-
-  const getQuery = (sortByItems, orderByItems) => {
-		let sort_by = null;
-		let order_by = null;
-
-		sortByItems.forEach((item) => {
-			if (item.checked) {
-				sort_by = item.query;
-			}
-		});
-
-		orderByItems.forEach((item) => {
-			if (item.checked) {
-				order_by = item.query;
-			}
-		});
-
-		setQuery({ sort_by, order_by });
-	};
-
-  function sortReviews(reviews, sortBy, sortOrder) {
-		return reviews.sort((a, b) => {
-			let comparison = 0;
-			if (a[sortBy] > b[sortBy]) {
-				comparison = 1;
-			} else if (a[sortBy] < b[sortBy]) {
-				comparison = -1;
-			}
-			return sortOrder === 'asc' ? comparison : comparison * -1;
-		});
-	}
+	const [query, setQuery] = useState({ sort_by: null, order_by: null });
 
 	useEffect(() => {
 		setCategory(category_name);
 	}, [category_name]);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchData = async () => {
 			try {
-				let data = await getReviews(category);
-        getQuery(sortItems, orderItems)
-        data = sortReviews(data, query.sort_by, query.order_by);
+				const data = await getReviews(category, query.sort_by, query.order_by);
 				setReviews(data);
 			} catch (error) {
-        console.log(error);
 				setGetReviewsError('Error fetching data from api');
 			}
 			setIsLoading(false);
 		};
 		fetchData();
-	}, [category, orderItems, query.order_by, sortItems, query.sort_by]);
+	}, [category, query.sort_by, query.order_by]);
+
+	useEffect(() => {
+		let sort_by = null;
+		let order_by = null;
+
+		sortItems.forEach((item) => {
+			if (item.checked) {
+				sort_by = item.query;
+			}
+		});
+
+		orderItems.forEach((item) => {
+			if (item.checked) {
+				order_by = item.query;
+			}
+		});
+
+		setQuery({ sort_by, order_by });
+	}, [sortItems, orderItems]);
 
 	return (
 		<section className='review-list'>
