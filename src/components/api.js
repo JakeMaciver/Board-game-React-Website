@@ -55,3 +55,7 @@ export const getCategories = async () => {
   const {data} = await api.get(`categories`);
   return data.categories;
 }
+
+export const deleteComment = async (comment_id) => {
+  await api.delete(`comments/${comment_id}`);
+}

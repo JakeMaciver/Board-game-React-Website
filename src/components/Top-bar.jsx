@@ -6,9 +6,17 @@ export const Topbar = ({setSidebarVisible, screenWidth}) => {
 
   return (
 		<section className='top-bar'>
-			<span className='material-symbols-outlined' onClick={handleMenuOnClick}>menu</span>
-			<button className="create-review-btn">Create A Review</button>
+			<section className='menu-icon'>
+				<span className='material-symbols-outlined' onClick={handleMenuOnClick}>
+					menu
+				</span>
+			</section>
+      <section className="create-review-btn">
+			<button className='create-review-btn'>Create A Review</button>
+      </section>
+      <section className="account-icon">
 			<span className='material-symbols-outlined'>account_circle</span>
+      </section>
 		</section>
 	);
 }

@@ -19,10 +19,10 @@ export const RightAside = ({
 	};
 
 	return (
-		<ul className='side-bar'>
-			<p className='side-bar-title'>Sort by</p>
+		<ul className='aside-bar'>
+			<p className='aside-bar-title'>Sort by</p>
 			{sortItems.map((item) => (
-				<li key={item.id} className='side-bar-list-item'>
+				<li key={item.id} className='aside-bar-list-item'>
 					<label>
 						<input
 							type='checkbox'
@@ -35,9 +35,9 @@ export const RightAside = ({
 					</label>
 				</li>
 			))}
-			<p className='side-bar-title'>Order by</p>
+			<p className='aside-bar-title'>Order by</p>
 			{orderItems.map((item) => (
-				<li key={item.id} className='side-bar-list-item'>
+				<li key={item.id} className='aside-bar-list-item'>
 					<label>
 						<input
 							type='checkbox'
