@@ -1,5 +1,6 @@
 body{
   margin:0px;
+  background-color: #21242F;
 }
 
 header{
@@ -14,6 +15,7 @@ header{
 h1{
   font-size: 4em;
   font-family:'Times New Roman', Times, serif;
+  color: #E3E0E2;
 }
 
 main{
@@ -28,10 +30,12 @@ main{
   width: 100vw;
   border-bottom: 1px solid rgb(161,156,156);
   align-items: center;
+  background-color: #757B91;
 }
 
 .menu-icon{
   margin-left:auto;
+  color: #ccc;
 }
 
 .create-review-btn{
@@ -41,6 +45,7 @@ main{
 
 .account-icon{
   margin-right:auto;
+  color: #ccc;
 }
 
 .create-review-btn{
@@ -53,12 +58,14 @@ main{
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+  grid-template-columns: 1fr minmax(auto, 700px) 1fr;
+  background-color: #21242F;
 }
 
 .review-list{
   display:grid;
   grid-column:2/3;
+  background-color: #687280;
 }
 
 .cards-list{
@@ -79,6 +86,7 @@ main{
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #21242F;
 }
 
 .card-category-box{
@@ -88,12 +96,21 @@ main{
   justify-content: left;
   align-items: center;
   font-size: 12px;
+  color: #ccc;
 }
 
+a{
+  text-decoration: none;
+}
+
+Link{
+  text-decoration: none;
+}
 .card-title{
   grid-row: 2/3;
   margin-top: 5px;
   margin-bottom: 5px;
+  color: #ccc;
 }
 
 .card-sub-text{
@@ -104,6 +121,7 @@ main{
   align-self:top;
   font-size: 12px;
   color: rgb(150, 150, 147);
+  color: #ccc;
 }
 
 .card-img{
@@ -119,6 +137,7 @@ main{
   grid-row:5/6;
   margin:0px;
   color: rgb(150, 150, 147);
+  color: #ccc;
 }
 
 .card-footer{
@@ -126,11 +145,13 @@ main{
   margin:0px;
   display:flex;
   justify-content:space-around;
+  color: #ccc;
 }
 
 .loading-text{
   text-align: center;
   justify-content: center;
+  color: #ccc;
 }
 
 .single-review{
@@ -138,6 +159,8 @@ main{
   grid-column:2/3;
   padding:0px;
   list-style-type: none;
+  background-color: #687280;
+  margin-top:0;
 }
 
 .review{
@@ -147,12 +170,14 @@ main{
   justify-content: center;
   align-items: center;
   max-width: 600px;
+  margin-top:3%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  background-color: #21242F;
 }
 
 .review-category-box{
@@ -162,12 +187,15 @@ main{
   justify-content: left;
   align-items: center;
   font-size: 12px;
+  color: #ccc;
+  
 }
 
 .review-title{
   grid-row: 2/3;
   margin-top: 5px;
   margin-bottom: 5px;
+  color: #ccc;
 }
 
 .review-sub-text{
@@ -178,6 +206,7 @@ main{
   align-self:top;
   font-size: 12px;
   color: rgb(150, 150, 147);
+  color: #ccc;
 }
 
 .review-img{
@@ -193,12 +222,14 @@ main{
   grid-row:5/6;
   margin:0px;
   color: rgb(150, 150, 147);
+  color: #ccc;
 }
 
 .review-body{
   grid-row: 6/7;
   display:flex;
   padding:30px;
+  color: #ccc;
 }
 
 .review-footer{
@@ -206,12 +237,14 @@ main{
   margin:0px;
   display:flex;
   justify-content:space-around;
+  color: #ccc;
 }
 
 .comments-list{
   list-style-type: none;
   width:100%;
   padding:0px;
+  color: #ccc;
 }
 
 .comment{
@@ -226,6 +259,7 @@ main{
   margin-bottom: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  background-color: #21242F;
 }
 
 .comment-user-box{
@@ -292,6 +326,7 @@ main{
   margin-bottom: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  background-color: #21242F;
 }
 
 .post-comment-text {
@@ -336,21 +371,25 @@ main{
   margin-right:30px;
   padding-right:15%;
   padding-left: 20%;
-  border-right: 2px solid;
+  border-right: 1px solid #ccc;
+  border-radius: 20px;
 }
 
 .side-bar-title{
   font-weight: bold;
+  color: #ccc;
 }
 
 .side-bar-list-item{
   font-size: small;
   margin-left: 10px;
   text-decoration: none;
+  color: #ccc;
 }
 
 .category-title{
   text-align: center;
+  color: #ccc;
 }
 
 .aside-bar{
@@ -360,15 +399,23 @@ main{
   margin-left:30px;
   padding-right:20%;
   padding-left: 10%;
-  border-left: 2px solid;
+  border-left: 1px solid #ccc;
+  border-radius: 20px;
 }
 
 .aside-bar-title{
   font-weight: bold;
+  color: #ccc;
 }
 
 .aside-bar-list-item{
   font-size: small;
   margin-left: 10px;
   text-decoration: none;
+  color: #ccc;
+}
+
+.category-title{
+  font-size: 50px;
+  font-weight: 300;
 }
