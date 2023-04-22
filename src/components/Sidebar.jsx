@@ -24,7 +24,7 @@ export const Sidebar = () => {
 					<li key={category.slug} className='side-bar-list-item'>
 						<Link
 							to={`/reviews/categories/${category.slug}`}
-							style={{ textDecoration: 'none' }}
+							style={{ textDecoration: 'none', color: '#ccc'}}
 						>
 							<p>{category.slug}</p>
 						</Link>
