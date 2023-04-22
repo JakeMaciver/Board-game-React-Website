@@ -13,7 +13,7 @@ header{
 }
 
 h1{
-  font-size: 4em;
+  font-size: 4vw;
   font-family:'Times New Roman', Times, serif;
   color: #E3E0E2;
 }
@@ -21,31 +21,6 @@ h1{
 main{
   display:grid;
   grid-template-rows: 50px 1fr;
-}
-
-.top-bar{
-  grid-row: 1/2;
-  display: grid;
-  grid-template-columns: auto 550px auto;
-  width: 100vw;
-  border-bottom: 1px solid rgb(161,156,156);
-  align-items: center;
-  background-color: #757B91;
-}
-
-.menu-icon{
-  margin-left:auto;
-  color: #ccc;
-}
-
-.create-review-btn{
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.account-icon{
-  margin-right:auto;
-  color: #ccc;
 }
 
 .create-review-btn{
@@ -418,4 +393,68 @@ Link{
 .category-title{
   font-size: 50px;
   font-weight: 300;
+}
+
+.top-bar{
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: auto 550px auto;
+  width: 100vw;
+  border-bottom: 1px solid rgb(161,156,156);
+  align-items: center;
+  background-color: #757B91;
+}
+
+.create-review-btn{
+  grid-column: 2/3;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.account-icon{
+  margin-right:auto;
+  color: #ccc;
+}
+
+
+@media (max-width: 1020px){
+
+  .side-bar{
+    align-items: center;
+    border-left: 1px solid #ccc;
+    margin-left:30px;
+    padding:0px;
+  }
+
+  .aside-bar{
+    align-items: center;
+    border-right: 1px solid #ccc;
+    margin-right: 30px;
+    padding:0px;
+  }
+
+  .top-bar{
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: auto 550px auto;
+  width: 100vw;
+  border-bottom: 1px solid rgb(161,156,156);
+  align-items: center;
+  background-color: #757B91;
+}
+
+.menu-icon{
+  margin-left:auto;
+  color: #ccc;
+}
+
+.create-review-btn{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.account-icon{
+  margin-right:auto;
+  color: #ccc;
+}
 }
