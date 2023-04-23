@@ -12,6 +12,7 @@ export const ReviewList = ({
 	setSortItems,
 	orderItems,
 	setOrderItems,
+  setSidebarVisible
 }) => {
 	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -64,11 +65,7 @@ export const ReviewList = ({
 			{sidebarVisible ? (
 				<section>
 					<Sidebar
-						sidebarVisible={sidebarVisible}
-						sortItems={sortItems}
-						setSortItems={setSortItems}
-						orderItems={orderItems}
-						setOrderItems={setOrderItems}
+						setSidebarVisible={setSidebarVisible}
 					/>
 					{sidebarVisible ? (
 						<RightAside

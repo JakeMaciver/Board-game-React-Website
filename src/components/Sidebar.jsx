@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react';
 import { getCategories } from './api';
 import { Link } from 'react-router-dom';
 
-export const Sidebar = () => {
+export const Sidebar = ({setSidebarVisible}) => {
 	const [categories, setCategories] = useState([]);
+
+  const handleOnClick = () => {
+    setSidebarVisible((sidebarVisible) => !sidebarVisible)
+  }
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -15,7 +19,7 @@ export const Sidebar = () => {
 
 	return (
 		<ul className='side-bar'>
-			<Link to={`/reviews`} style={{ textDecoration: 'none' }}>
+			<Link to={`/reviews`} style={{ textDecoration: 'none' }} onClick={handleOnClick}>
 				<p className='side-bar-title'>Home</p>
 			</Link>
 			<p className='side-bar-title'>Categories</p>
@@ -24,7 +28,8 @@ export const Sidebar = () => {
 					<li key={category.slug} className='side-bar-list-item'>
 						<Link
 							to={`/reviews/categories/${category.slug}`}
-							style={{ textDecoration: 'none', color: '#ccc'}}
+							style={{ textDecoration: 'none', color: '#ccc' }}
+							onClick={handleOnClick}
 						>
 							<p>{category.slug}</p>
 						</Link>
