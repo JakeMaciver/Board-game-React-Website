@@ -57,6 +57,7 @@ function App() {
 								setSortItems={setSortItems}
 								orderItems={orderItems}
 								setOrderItems={setOrderItems}
+                screenWidth={screenWidth}
 							/>
 						}
 					/>
@@ -105,6 +106,8 @@ function App() {
 						setSortItems={setSortItems}
 						orderItems={orderItems}
 						setOrderItems={setOrderItems}
+            user={user}
+            screenWidth={screenWidth}
 					/>
 				)}
 			</section>
