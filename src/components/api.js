@@ -59,3 +59,8 @@ export const getCategories = async () => {
 export const deleteComment = async (comment_id) => {
   await api.delete(`comments/${comment_id}`);
 }
+
+export const getUser = async (username) => {
+  const {data} = await api.get(`users?username=${username}`);
+  return data.users;
+}

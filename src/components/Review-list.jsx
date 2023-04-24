@@ -12,7 +12,8 @@ export const ReviewList = ({
 	setSortItems,
 	orderItems,
 	setOrderItems,
-  setSidebarVisible
+  setSidebarVisible,
+  screenWidth
 }) => {
 	const [reviews, setReviews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -73,6 +74,7 @@ export const ReviewList = ({
 							setSortItems={setSortItems}
 							orderItems={orderItems}
 							setOrderItems={setOrderItems}
+              screenWidth={screenWidth}
 						/>
 					) : null}
 				</section>

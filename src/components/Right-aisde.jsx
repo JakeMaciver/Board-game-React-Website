@@ -1,8 +1,12 @@
+import { AccountCard } from "./Account-card";
+
 export const RightAside = ({
 	sortItems,
 	setSortItems,
 	orderItems,
 	setOrderItems,
+  user,
+  screenWidth
 }) => {
 	const handleCheck = (event) => {
 		const itemId = parseInt(event.target.value);
@@ -19,7 +23,8 @@ export const RightAside = ({
 	};
 
 	return (
-		<ul className='aside-bar'>
+    <ul className='aside-bar'>
+      {screenWidth < 1020 ? null : (<AccountCard user={user}/>)}
 			<p className='aside-bar-title'>Sort by</p>
 			{sortItems.map((item) => (
 				<li key={item.id} className='aside-bar-list-item'>

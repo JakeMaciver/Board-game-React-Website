@@ -458,3 +458,23 @@ Link{
   color: #ccc;
 }
 }
+
+.account-card-container{
+  display:flex;
+  margin-top:20px;
+  width:150px;
+  height:200px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-direction: column;
+  background-color: #757B91;
+  color: #ccc;
+}
+
+.account-card-profile-pic{
+  width:90%;
+  border-radius: 20%;
+  border:1px solid black;
+}
